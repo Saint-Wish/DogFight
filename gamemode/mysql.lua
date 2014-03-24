@@ -14,6 +14,7 @@ function db:onConnected( )
 end
 
 function dbquery( query, callback )
+	if not db then return end
 	local q = db:query( query )
 	function q:onSuccess( data )
 		--stuff
@@ -34,6 +35,7 @@ function dbquery( query, callback )
 end
 
 function SetAllOffline()
+	if not db then return end
 
 	--tmysql.query("UPDATE clients SET server = 0 WHERE server = 27025 ", function(setalloffline,status,error)
 	--	if (error != 0) then print(tostring(error) .. "\n") Error(tostring(error) .. "\n")  return end
@@ -73,6 +75,7 @@ function TranslateFlags(ply)
 end
 
 function Groups(ply)
+	if not db then return end
 	if not ply:IsValid() then return end
 
 	local steamid = ply:SteamID()
@@ -105,6 +108,7 @@ function Groups(ply)
 end
 
 function StatusOnline(ply)
+	if not db then return end
 	if not ply:IsValid() then return end
 
   	local steamid = ply:SteamID()
@@ -117,6 +121,7 @@ function StatusOnline(ply)
 end
 
 function StatusOffline(ply)
+	if not db then return end
 	if not ply:IsValid() then return end
 
 	SaveProfile(ply)
@@ -139,6 +144,7 @@ end
 hook.Add("PlayerDisconnected", "PlayerOffline", StatusOffline)
 
 function LoadUnlocks(ply)
+	if not db then return end
 	if not ply:IsValid() then return end
 
 	local steamid = ply:SteamID()
@@ -221,6 +227,7 @@ function LoadUnlocks(ply)
 end
 
 function LoadProfiles(ply)
+	if not db then return end
 	if not IsValid(ply) then return end
 
 	ply.Save = CurTime()
@@ -336,6 +343,7 @@ function ImplodeTable(Sep,Tab)
 end
 
 function SaveUnlocks(ply)
+	if not db then return end
 	if not ply:IsValid() then return end
 	if ply.UNLOCKS == nil || ply.UNLOCKS == {} then return end
 	local steamid = ply:SteamID()
@@ -351,6 +359,7 @@ function SaveUnlocks(ply)
 end
 
 function SaveProfile(ply)
+	if not db then return end
 	if not ply:IsValid() then return end
 	local steamid = ply:SteamID()
 	local kills = ply:GetNWInt("kills")
